@@ -4,12 +4,14 @@
     <title>Socket.IO chat</title>
   </head>
   <body>    
+    <button style="margin-top: 15%; margin-left: 45%" onclick="myFunction()">Start Audio Stream</button>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
 
       var constraints = { audio: true };
-      navigator.mediaDevices.getUserMedia(constraints).then(function(mediaStream) {
+      function myFunction() {
+        navigator.mediaDevices.getUserMedia(constraints).then(function(mediaStream) {
           var mediaRecorder = new MediaRecorder(mediaStream);
           mediaRecorder.onstart = function(e) {
               this.chunks = [];
@@ -29,7 +31,22 @@
           setTimeout(function() {
               mediaRecorder.stop()
           }, 5000);
-      });
+        });
+      }
     </script>
   </body>
+  <style>
+    button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    </style>
 </html>
